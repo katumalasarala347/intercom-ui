@@ -103,10 +103,10 @@ export default function ChatPanel({ selectedContact }) {
       </div>
 
       {/* Chat Input Bar */}
-      <div className="p-4 border-t dark:border-gray-700 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center bg-white dark:bg-black">
-        {/* File preview & cancel */}
+      <div className="p-4 border-t dark:border-gray-700 bg-white dark:bg-black w-full">
+        {/* Show file name + remove button */}
         {file && (
-          <div className="text-sm text-gray-500 flex items-center gap-2">
+          <div className="text-sm text-gray-500 flex items-center gap-2 mb-2">
             📎 {file.name}
             <button
               onClick={() => setFile(null)}
@@ -117,34 +117,38 @@ export default function ChatPanel({ selectedContact }) {
           </div>
         )}
 
-        {/* File picker */}
-        <label className="cursor-pointer text-xl">
-          📎
+        <div className="flex flex-col sm:flex-row gap-2 w-full items-stretch sm:items-center">
+          {/* File input */}
+          <label className="cursor-pointer text-xl flex items-center">
+            📎
+            <input
+              type="file"
+              className="hidden"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+          </label>
+
+          {/* Text input */}
           <input
-            type="file"
-            className="hidden"
-            onChange={(e) => setFile(e.target.files[0])}
+            value={file ? `📎 ${file.name}` : newMsg}
+            onChange={(e) => !file && setNewMsg(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
+            type="text"
+            className="flex-1 border px-3 py-2 rounded bg-white dark:bg-gray-800 w-full"
+            placeholder={file ? "" : "Type your message..."}
+            readOnly={!!file}
           />
-        </label>
 
-        {/* Input */}
-        <input
-          value={file ? `📎 ${file.name}` : newMsg}
-          onChange={(e) => !file && setNewMsg(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}
-          type="text"
-          className="flex-1 border px-3 py-2 rounded bg-white dark:bg-gray-800"
-          placeholder={file ? "" : "Type your message..."}
-          readOnly={!!file}
-        />
-
-        {/* Send button */}
-        <button
-          onClick={handleSend}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          Send
-        </button>
+          {/* Send Button */}
+          <div className="w-full sm:w-auto">
+            <button
+              onClick={handleSend}
+              className="bg-blue-600 text-white px-4 py-2 w-full rounded hover:bg-blue-700 transition"
+            >
+              Send
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
