@@ -3,16 +3,16 @@ import { motion } from "framer-motion";
 
 export default function ChatPanel({ selectedContact }) {
   const defaultMessages = {
-    "John Doe": [
-      { from: "bot", text: "Hello John! How can I help?", time: "10:00 AM" },
+    "Sarah": [
+      { from: "bot", text: "Hello Sarah! How can I help?", time: "10:00 AM" },
       { from: "user", text: "Need help with invoice.", time: "10:01 AM" },
     ],
-    "Jane Smith": [
-      { from: "bot", text: "Hi Jane, what's up?", time: "11:15 AM" },
+    "Sree Anu": [
+      { from: "bot", text: "Hi Sree, what's up?", time: "11:15 AM" },
       { from: "user", text: "My tracking isn’t updating.", time: "11:16 AM" },
     ],
-    "Alex Turner": [
-      { from: "bot", text: "Hey Alex!", time: "12:00 PM" },
+    "Virat": [
+      { from: "bot", text: "Hey Virat!", time: "12:00 PM" },
       { from: "user", text: "Account access issue.", time: "12:01 PM" },
     ],
   };

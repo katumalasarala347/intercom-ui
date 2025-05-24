@@ -5,10 +5,10 @@ import Navbar from "../components/Navbar";
 import ChatPanel from "../components/ChatPanel";
 import ContactList from "../components/ContactList";
 
-const contacts = ["John Doe", "Jane Smith", "Alex Turner"];
+const contacts = ["Sarah", "Sree Anu", "Virat"];
 
 function Home({ toggleTheme, darkMode }) {
-  const [selectedContact, setSelectedContact] = useState("John Doe");
+  const [selectedContact, setSelectedContact] = useState("Sarah");
 
   return (
     <div className="flex h-screen flex-row ml-16">
