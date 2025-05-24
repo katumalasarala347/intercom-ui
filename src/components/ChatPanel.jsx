@@ -102,9 +102,9 @@ export default function ChatPanel({ selectedContact }) {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Chat Input Bar */}
+      {/* Input Area */}
       <div className="p-4 border-t dark:border-gray-700 bg-white dark:bg-black w-full">
-        {/* Show file name + remove button */}
+        {/* Show selected file */}
         {file && (
           <div className="text-sm text-gray-500 flex items-center gap-2 mb-2">
             📎 {file.name}
@@ -117,9 +117,9 @@ export default function ChatPanel({ selectedContact }) {
           </div>
         )}
 
-        <div className="flex flex-col sm:flex-row gap-2 w-full items-stretch sm:items-center">
-          {/* File input */}
-          <label className="cursor-pointer text-xl flex items-center">
+        <div className="flex items-center gap-2 w-full">
+          {/* File Picker */}
+          <label className="cursor-pointer text-xl">
             📎
             <input
               type="file"
@@ -128,26 +128,24 @@ export default function ChatPanel({ selectedContact }) {
             />
           </label>
 
-          {/* Text input */}
+          {/* Message Input */}
           <input
             value={file ? `📎 ${file.name}` : newMsg}
             onChange={(e) => !file && setNewMsg(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
             type="text"
-            className="flex-1 border px-3 py-2 rounded bg-white dark:bg-gray-800 w-full"
+            className="flex-grow border px-3 py-2 rounded bg-white dark:bg-gray-800 min-w-0"
             placeholder={file ? "" : "Type your message..."}
             readOnly={!!file}
           />
 
           {/* Send Button */}
-          <div className="w-full sm:w-auto">
-            <button
-              onClick={handleSend}
-              className="bg-blue-600 text-white px-4 py-2 w-full rounded hover:bg-blue-700 transition"
-            >
-              Send
-            </button>
-          </div>
+          <button
+            onClick={handleSend}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition flex-shrink-0"
+          >
+            Send
+          </button>
         </div>
       </div>
     </div>
