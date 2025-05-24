@@ -26,6 +26,7 @@ export default function ChatPanel({ selectedContact }) {
   useEffect(() => {
     setMessages(defaultMessages[selectedContact]);
     setFile(null);
+    setNewMsg("");
   }, [selectedContact]);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ export default function ChatPanel({ selectedContact }) {
     new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   const handleSend = () => {
-    if (newMsg.trim() === "" && !file) return;
+    if (!newMsg.trim() && !file) return;
 
     const time = getTimeNow();
     const updated = [...messages];
@@ -55,8 +56,8 @@ export default function ChatPanel({ selectedContact }) {
     setTyping(true);
 
     setTimeout(() => {
-      setMessages([
-        ...updated,
+      setMessages((prev) => [
+        ...prev,
         { from: "bot", text: "Thanks, noted!", time: getTimeNow() },
       ]);
       setTyping(false);
@@ -64,7 +65,7 @@ export default function ChatPanel({ selectedContact }) {
   };
 
   return (
-    <div className="flex flex-col flex-1 ml-16">
+    <div className="flex flex-col flex-1">
       <div className="flex-1 flex flex-col p-4 space-y-2 overflow-auto">
         <div className="text-center text-sm text-gray-500 mb-2">
           Chatting with <strong>{selectedContact}</strong>
@@ -102,7 +103,21 @@ export default function ChatPanel({ selectedContact }) {
       </div>
 
       {/* Chat Input Bar */}
-      <div className="p-4 border-t dark:border-gray-700 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+      <div className="p-4 border-t dark:border-gray-700 flex flex-col sm:flex-row gap-2 items-stretch sm:items-center bg-white dark:bg-black">
+        {/* File preview & cancel */}
+        {file && (
+          <div className="text-sm text-gray-500 flex items-center gap-2">
+            📎 {file.name}
+            <button
+              onClick={() => setFile(null)}
+              className="text-red-500 text-xs underline"
+            >
+              Remove
+            </button>
+          </div>
+        )}
+
+        {/* File picker */}
         <label className="cursor-pointer text-xl">
           📎
           <input
@@ -112,15 +127,18 @@ export default function ChatPanel({ selectedContact }) {
           />
         </label>
 
+        {/* Input */}
         <input
-          value={newMsg}
-          onChange={(e) => setNewMsg(e.target.value)}
+          value={file ? `📎 ${file.name}` : newMsg}
+          onChange={(e) => !file && setNewMsg(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
           type="text"
-          className="flex-1 border px-3 py-2 rounded"
-          placeholder="Type your message..."
+          className="flex-1 border px-3 py-2 rounded bg-white dark:bg-gray-800"
+          placeholder={file ? "" : "Type your message..."}
+          readOnly={!!file}
         />
 
+        {/* Send button */}
         <button
           onClick={handleSend}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
