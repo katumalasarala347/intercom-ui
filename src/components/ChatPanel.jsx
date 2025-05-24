@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export default function ChatPanel({ selectedContact }) {
   const defaultMessages = {
-    "Sarah": [
+    Sarah: [
       { from: "bot", text: "Hello Sarah! How can I help?", time: "10:00 AM" },
       { from: "user", text: "Need help with invoice.", time: "10:01 AM" },
     ],
@@ -11,7 +11,7 @@ export default function ChatPanel({ selectedContact }) {
       { from: "bot", text: "Hi Sree, what's up?", time: "11:15 AM" },
       { from: "user", text: "My tracking isn’t updating.", time: "11:16 AM" },
     ],
-    "Virat": [
+    Virat: [
       { from: "bot", text: "Hey Virat!", time: "12:00 PM" },
       { from: "user", text: "Account access issue.", time: "12:01 PM" },
     ],
@@ -65,8 +65,9 @@ export default function ChatPanel({ selectedContact }) {
   };
 
   return (
-    <div className="flex flex-col flex-1">
-      <div className="flex-1 flex flex-col p-4 space-y-2 overflow-auto">
+    <div className="flex flex-col h-full w-full">
+      {/* Messages */}
+      <div className="flex-1 overflow-auto p-4 space-y-2">
         <div className="text-center text-sm text-gray-500 mb-2">
           Chatting with <strong>{selectedContact}</strong>
         </div>
@@ -102,9 +103,8 @@ export default function ChatPanel({ selectedContact }) {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Area */}
+      {/* Chat Input */}
       <div className="p-4 border-t dark:border-gray-700 bg-white dark:bg-black w-full">
-        {/* Show selected file */}
         {file && (
           <div className="text-sm text-gray-500 flex items-center gap-2 mb-2">
             📎 {file.name}
@@ -118,7 +118,6 @@ export default function ChatPanel({ selectedContact }) {
         )}
 
         <div className="flex items-center gap-2 w-full">
-          {/* File Picker */}
           <label className="cursor-pointer text-xl">
             📎
             <input
@@ -128,7 +127,6 @@ export default function ChatPanel({ selectedContact }) {
             />
           </label>
 
-          {/* Message Input */}
           <input
             value={file ? `📎 ${file.name}` : newMsg}
             onChange={(e) => !file && setNewMsg(e.target.value)}
@@ -139,7 +137,6 @@ export default function ChatPanel({ selectedContact }) {
             readOnly={!!file}
           />
 
-          {/* Send Button */}
           <button
             onClick={handleSend}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition flex-shrink-0"
