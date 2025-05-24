@@ -1,18 +1,20 @@
-export default function ContactList({ onSelect }) {
-  const contacts = ["John Doe", "Jane Smith", "Alex Turner"];
-
+function ContactList({ contacts, selectedContact, onSelect }) {
   return (
-    <div className="w-full md:w-64 border-l p-4 bg-white dark:bg-gray-800 space-y-2 overflow-y-auto">
-      <h2 className="text-lg font-bold mb-2">Contacts</h2>
-      {contacts.map((contact, idx) => (
-        <div
-          key={idx}
+    <div className="w-48 border-r dark:border-gray-700 p-2">
+      <h2 className="font-semibold mb-2">Contacts</h2>
+      {contacts.map((contact) => (
+        <button
+          key={contact}
+          className={`block w-full text-left p-2 rounded mb-1 hover:bg-blue-100 dark:hover:bg-gray-700 ${
+            contact === selectedContact ? "bg-blue-200 dark:bg-gray-700" : ""
+          }`}
           onClick={() => onSelect(contact)}
-          className="border p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
         >
           {contact}
-        </div>
+        </button>
       ))}
     </div>
   );
 }
+
+export default ContactList;

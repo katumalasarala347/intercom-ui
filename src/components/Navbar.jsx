@@ -1,12 +1,15 @@
-export default function Navbar() {
+function Navbar({ toggleTheme, darkMode }) {
   return (
-    <header className="h-16 px-6 bg-white border-b flex items-center justify-between">
-      <h1 className="text-xl font-semibold">Intercom Clone</h1>
-      <input
-        type="text"
-        placeholder="Search..."
-        className="border px-2 py-1 rounded"
-      />
-    </header>
+    <div className="flex justify-between items-center p-4 border-b dark:border-gray-700">
+      <h1 className="text-xl font-bold">Intercom Clone</h1>
+      <button
+        onClick={toggleTheme}
+        className="px-3 py-1 rounded bg-gray-200 dark:bg-gray-800"
+      >
+        {darkMode ? "Light Mode" : "Dark Mode"}
+      </button>
+    </div>
   );
 }
+
+export default Navbar;
